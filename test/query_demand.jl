@@ -1,5 +1,6 @@
 using Test, Pkg
-Pkg.add("https://github.com/antonhinneck/Caiso.jl/blob/master/src/Caiso.jl")
+Pkg.add(PackageSpec(url="https://github.com/antonhinneck/Caiso.jl", rev="master"))
+using Caiso
 
 d1 = Date(2018, 05, 01)
 d2 = Date(2019, 05, 02)
