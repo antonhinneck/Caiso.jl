@@ -2,14 +2,13 @@
 ## the REST API of the California System
 ## Operator Organization http://www.caiso.com/Pages/default.aspx
 ######----------------------------------------------------------
-using HTTP, JSON, CSV, DataFrames, Dates
-
 
 __precompile__(true)
 module Caiso
 
 # REQUIRES: Dates, HTTP, CSV, Dates
-#--------------------------------------
+#---------------------------------------
+using HTTP, JSON, CSV, DataFrames, Dates
 
 
 # QUERIES -----------------------------------------
