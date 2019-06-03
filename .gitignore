@@ -1,0 +1,6 @@
+*
+!.gitignore
+!src/Caiso.jl
+!test/query_demand.jl
+#sctyr/src/Caiso.jl
+#sctyr/test/query_demand.jl
