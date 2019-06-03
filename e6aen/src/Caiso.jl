@@ -17,8 +17,8 @@ module Caiso
                                     day_2::Date;
                                     verbose = false)
 
-                @assert (day_1 <= day_2) "Day 1 <= Day 2"
-                @assert (day_1 >= Date(2018, 04, 10)) "First entry was sampled on April 10th, 2018"
+                @assert (day_1 <= day_2) "Assertion Error: Day 1 <= Day 2"
+                @assert (day_1 >= Date(2018, 04, 10)) "Assertion Error: First entry was sampled on April 10th, 2018."
 
                 url_root::String = "http://www.caiso.com/outlook/SP/history/"
                 url_end::String = "/demand.csv"
