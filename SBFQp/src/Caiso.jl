@@ -19,12 +19,10 @@ using HTTP, JSON, CSV, DataFrames, Dates
 
                 input_valid = true
                 if day_1 > day_2
-                        throw(ArgumentError)
                         print("Error (caiso_query_demand): Day 1 > Day 2.")
                         input_valid = false
                 end
                 if day_1 < Date(2018, 04, 10)
-                        throw(ArgumentError)
                         print("Error (caiso_query_demand): First entry on April 10th, 2018.")
                         input_valid = false
                 end
