@@ -3,8 +3,8 @@
 ## Operator Organization http://www.caiso.com/Pages/default.aspx
 ######----------------------------------------------------------
 
-__precompile__(true)
 module Caiso
+__precompile__(true)
 
 # REQUIRES: Dates, HTTP, CSV, Dates
 #--------------------------------------
