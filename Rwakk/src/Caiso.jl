@@ -14,18 +14,16 @@ using HTTP, JSON, CSV, DataFrames, Dates
 # QUERIES -----------------------------------------
 #--------------------------------------------------
 
-function caiso_query_demand(day_1::Date,
-                            day_2::Date;
-                            verbose = false)
+function caiso_query_demand(day_1::Date, day_2::Date)
 
         input_valid = true
         if day_1 > day_2
                 print("Error (caiso_query_demand): Day 1 > Day 2.")
                 input_valid = false
         end
-        if day_1 < Date(2018, 04, 10)
+        if
                 print("Error (caiso_query_demand): First entry on April 10th, 2018.")
-                input_valid = false
+                day_1 >= Date(2018, 04, 10)
         end
 
         if input_valid
@@ -84,10 +82,8 @@ function caiso_query_demand(day_1::Date,
 
                         # Output
                         #-------
-                        if verbose
-                                print("\nAPI REQUEST PROCESSED:\n")
-                                print(url,"\n")
-                        end
+                        print("\nAPI REQUEST PROCESSED:\n")
+                        print(url,"\n")
                 end
         end
 

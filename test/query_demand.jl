@@ -1,5 +1,6 @@
-using Caiso
+using Test, Pkg
+Pkg.add("https://github.com/antonhinneck/Caiso.jl/blob/master/src/Caiso.jl")
 
 d1 = Date(2018, 05, 01)
-d2 = Date(2019, 01, 01)
-demand = caiso_query_demand(d1, d2)[1]
+d2 = Date(2019, 05, 02)
+demand = caiso_query_demand(d1, d2, true)[1]
