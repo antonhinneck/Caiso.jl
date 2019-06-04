@@ -15,10 +15,13 @@ using HTTP, JSON, CSV, DataFrames, Dates
 
 function caiso_query_demand(day_1::Date,
                             day_2::Date;
-                            verbose = false)
+                            verbose = false,
+                            requested_data = :net)
 
         @assert (day_1 <= day_2) "Day 1 <= Day 2"
         @assert (day_1 >= Date(2018, 04, 10)) "First entry was sampled on April 10th, 2018"
+
+        output::S where S <: Any
 
         url_root::String = "http://www.caiso.com/outlook/SP/history/"
         url_end::String = "/demand.csv"
@@ -32,6 +35,7 @@ function caiso_query_demand(day_1::Date,
 
         counter = 1
         net_demand = Vector{Array{Int64, 1}}()
+        gross_demand = Vector{Array{Int64, 1}}()
         dates = Vector{Dates.Date}()
 
         while current_date != day_2 + Dates.Day(1)
@@ -67,7 +71,18 @@ function caiso_query_demand(day_1::Date,
                 data = HTTP.request("GET", url, [])
                 data_df = dropmissing(CSV.read(data.body))
 
-                push!(net_demand, data_df[:, 4])
+                if requested_data == :net
+                        push!(net_demand, data_df[:, 4])
+                        output = net_demand
+                elseif requested_data == :gross
+                        push!(gross_demand, data_df[:, 3])
+                        output = gross_demand
+                elseif requested_data == :all
+                        push!(net_demand, data_df[:, 4])
+                        push!(gross_demand, data_df[:, 3])
+                        output = [gross_demand, net_demand]
+                end
+
                 push!(dates, current_date)
 
                 current_date += Dates.Day(1)
@@ -81,7 +96,7 @@ function caiso_query_demand(day_1::Date,
 
         end
 
-        return net_demand, dates
+        return output, dates
 end
 
 # Module's end
