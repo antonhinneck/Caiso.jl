@@ -1,17 +1,17 @@
-## This package implements function to access
+## This package implements functions to access
 ## the REST API of the California System
 ## Operator Organization http://www.caiso.com/Pages/default.aspx
-######----------------------------------------------------------
+## ## ------------------ ---------------------------------------
 
 module Caiso
 __precompile__(true)
 
-# REQUIRES: Dates, HTTP, CSV, JSON, DataFrames
-#--------------------------------------
+# REQUIRES: HTTP, JSON, CSV, DataFrames, Dates
+# --------------------------------------------
 using HTTP, JSON, CSV, DataFrames, Dates
 
 # QUERIES -----------------------------------------
-#--------------------------------------------------
+# -------------------------------------------------
 
 function caiso_query_demand(day_1::Date,
                             day_2::Date;
