@@ -6,7 +6,7 @@
 module Caiso
 __precompile__(true)
 
-# REQUIRES: Dates, HTTP, CSV, Dates
+# REQUIRES: Dates, HTTP, CSV, JSON, DataFrames
 #--------------------------------------
 using HTTP, JSON, CSV, DataFrames, Dates
 
