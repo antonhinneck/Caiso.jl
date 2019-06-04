@@ -21,7 +21,7 @@ function caiso_query_demand(day_1::Date,
         @assert (day_1 <= day_2) "Day 1 <= Day 2"
         @assert (day_1 >= Date(2018, 04, 10)) "First entry was sampled on April 10th, 2018"
 
-        output::S where S <: Any
+        output::Array{Any,1} = []
 
         url_root::String = "http://www.caiso.com/outlook/SP/history/"
         url_end::String = "/demand.csv"
