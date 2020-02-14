@@ -34,8 +34,9 @@ function caiso_query_demand(day_1::Date,
         current_date_day_string::String = ""
 
         counter = 1
-        net_demand = Vector{Array{Int64, 1}}()
-        gross_demand = Vector{Array{Int64, 1}}()
+        current_demand = Vector{Array{Float64, 1}}()
+        day_ahead_forecast = Vector{Array{Float64, 1}}()
+        hour_ahead_forecast = Vector{Array{Float64, 1}}()
         dates = Vector{Dates.Date}()
 
         while current_date != day_2 + Dates.Day(1)
@@ -71,16 +72,12 @@ function caiso_query_demand(day_1::Date,
                 data = HTTP.request("GET", url, [])
                 data_df = dropmissing(CSV.read(data.body))
 
-                if requested_data == :net
-                        push!(net_demand, data_df[:, 4])
-                        output = net_demand
-                elseif requested_data == :gross
-                        push!(gross_demand, data_df[:, 3])
-                        output = gross_demand
+                if requested_data == :current
+                        push!(current_demand, data_df[:, 4])
                 elseif requested_data == :all
-                        push!(net_demand, data_df[:, 4])
-                        push!(gross_demand, data_df[:, 3])
-                        output = [gross_demand, net_demand]
+                        push!(day_ahead_forecast, data_df[:, 2])
+                        push!(hour_ahead_forecast, data_df[:, 3])
+                        push!(current_demand, data_df[:, 4])
                 end
 
                 push!(dates, current_date)
@@ -94,6 +91,12 @@ function caiso_query_demand(day_1::Date,
                         print(url,"\n")
                 end
 
+        end
+
+       if requested_data == :current
+                output = current_demand
+        elseif requested_data == :all
+                output = [day_ahead_forecast, hour_ahead_forecast, current_demand]
         end
 
         return output, dates
